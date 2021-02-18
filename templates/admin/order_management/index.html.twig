@@ -1,0 +1,76 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+
+    <div class="container">
+        <h2>Hello {{ app.user.fname }} {{ app.user.lname }}</h2>
+        <h4>Your authorisation levels
+            are: {% for role in app.user.roles %} {{ role|trim('ROLE_','left')|upper }} {% endfor %}</h4>
+
+    </div>
+    <ul class="list-group">
+{#        {% for role in app.user.roles %}#}
+{#            {% if role == "ROLE_SUPER_ADMIN" %}#}
+{#                <div class="container-fluid">#}
+{#                    <div class="row-cols-3">#}
+{#                        {% if showDeleted == false %}#}
+{#                            <a href="{{ path('orders_management_show_deleted') }}" class="btn btn-info">Show deleted#}
+{#                                orders</a>#}
+{#                        {% else %}#}
+{#                            <a href="{{ path('order_management') }}" class="btn btn-info">Hide deleted orders</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+        <div class="container-fluid">
+            <div class="row">
+                <table class="table table-striped">
+                    <tr>
+                        <th scope="col">Name</th>{# first i last name #}
+                        <th scope="col">Phone</th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                    {% for order in orders %}
+                        <tr>
+                            <th class="row">{{ order.id }}</th>
+                            <td>{{ order.order.address.firstName }}{{ order.order.address.lastName }}</td>
+                            <td>{{ order.order.address.phone }}</td>
+                            <td>{{ order.order.address.comment }}</td>
+                            <td>{{ order.order.status }}</td>
+                            <td>{{ order.order.note }}</td>
+                            <td>{{ order.order.createdAt|date("m/d/Y") }}</td>
+                            <td>{{ (order.price)*(order.quantity) }} лв</td>
+                            <td></td>
+                            {# {% if order.order.updatedAt == order.createdAt or order.updatedAt == NULL %} #}
+                            {# <td>Not updated yet!</td> #}
+                            {# {% else %} #}
+                            {# <td>{{ order.updatedAt|date("m/d/Y") }}</td> #}
+                            {# {% endif %} #}
+                            {# <td></td> #}
+                            {# {% if order.deletedAt == order.createdAt or order.deletedAt == NULL %} #}
+                            {# <td>Not deleted!</td> #}
+                            {# {% else %} #}
+                            {# <td>{{ order.deletedAt|date("m/d/Y") }}</td> #}
+                            {# {% endif %} #}
+
+                            <td><a href="{{ path('order_see', {'id': order.id}) }}" class="btn btn-warning">Details</a>
+                            </td>
+                            {# <td><a href="{{ path('category_delete', {'id': order.id}) }}" #}
+                            {# class="btn btn-danger">DELETE</a></td> #}
+
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </ul>
+{#    <a href="{{ path('order_call_edit') }}" class="btn btn-success">Create new order</a>#}
+
+{% endblock %}

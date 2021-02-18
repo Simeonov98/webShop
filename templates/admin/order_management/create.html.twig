@@ -1,0 +1,85 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <form action="{{ path('order_new')}}" method="post">
+
+        <div class="row">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter Name" {% if  is not null %} value="{{ article.name }}" {% endif %}>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" name="price" placeholder="Enter Price" {% if article is not null%} value="{{ article.price }}" {% endif %}>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="category">Category</label>
+
+                        <select  class="form-control" name="category" id="category" >
+                            {# {% if article is not null%} <option value="{{ article.category }}"></option> {% endif %} #}
+                            <{% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.getName()}} </option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" name="description" placeholder="Enter Description" {% if article is not null%} value="{{ article.description }}" {% endif %}>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="techdata">Technical Specification</label>
+                        <input type="text" class="form-control" name="techdata" placeholder="Enter Technical Specification" {% if article is not null%} value="{{ article.techData }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" placeholder="Enter Quantity" {% if article is not null%} value="{{ article.quantity }}" {% endif %}>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="manufacturer">Manufacturer</label>
+                        <input type="text" class="form-control" name="manufacturer" placeholder="Enter Manufacturer" {% if article is not null%} value="{{ article.manufacturer }}" {% endif %}>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" name="tags" placeholder="Enter Tags" {% if article is not null%} value="{{ article.tags }}" {% endif %}>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label for="imageID">ImageID</label>
+                        <input type="text" class="form-control" name="imageID" placeholder="Enter Image" {% if article is not null%} value="{{ article.imageId }}" {% endif %}>
+                    </div>
+                </div>
+                {% if article is null %}
+                    {#                    <div class="row">#}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label for="exampleInputPassword1">Password</label>#}
+                    {#                            <input type="password" class="form-control" name="password" placeholder="Password" >#}
+                    {#                        </div>#}
+                    {#                        <div class="form-group col-6">#}
+                    {#                            <label for="exampleInputPassword1">Password</label>#}
+                    {#                            <input type="password" class="form-control" name="repeatPassword" placeholder="Repeat Password" >#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                {% else %}
+                    <input type="hidden" class="form-control" name="id" value="{{ article.id }}">
+                {% endif %}
+
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+{% endblock %}
+

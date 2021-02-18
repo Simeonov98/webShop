@@ -1,0 +1,106 @@
+{% extends 'admin/base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <h2>Hello {{ app.user.fname }} {{ app.user.lname }}</h2>
+        <h4>Your authorisation levels
+            are: {% for role in app.user.roles %} {{ role|trim('ROLE_','left')|upper }} {% endfor %}</h4>
+
+    </div>
+    <style>
+        .imggg-lg {
+            width: 9.25rem;
+            height: 6.25rem;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <td>{{ article.name }}
+                    </tr>
+                    <tr>
+                        <th scope="col">Category</th>
+                        <td>{{ article.category }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Description</th>
+                        <td>{{ article.description }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Technical Information</th>
+                        <td>{{ article.techData }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Manufacturer</th>
+                        <td>{{ article.manufacturer }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Price</th>
+                        <td>{{ article.price }}</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="col">Quantity</th>
+                        <td>{{ article.quantity }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Images</th>
+                        <td>
+                            <div class="row">
+                                {% for image in images %}
+                                    {% if image.deletedAt == image.createdAt or image.deletedAt == NULL %}
+
+
+                                        <div class="col-2 col-md-offset-2" id="image{{ image.id }}">
+                                            <div class="img-wrap">
+                                                <button type="button" class="close" aria-label="Close"
+                                                        onclick="delImg({{ image.id }})">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <img src="{{ asset(image.path) }}" class="imggg-lg"/>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        function delImg($iid) {
+
+
+            $urlPath = "/admin/article/delete/image/" + $iid;
+
+            $.ajax({
+
+                url: $urlPath,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+
+
+                    $('#image' + $iid).remove();
+                },
+                error: function (request, error) {
+                    alert("Deleting failed you SUX!");
+                }
+            });
+        }
+    </script>
+
+
+{% endblock %}
+{# {% block javascript %} #}
+
+    {# {% endblock %}       #}

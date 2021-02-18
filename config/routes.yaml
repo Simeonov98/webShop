@@ -1,3 +1,6 @@
 #index:
 #    path: /
-#    controller: App\Controller\DefaultController::index
+#    controller: App\UserController\DefaultController::index
+custom_list:
+  path: /userManagement/edit
+  controller: App\Controller\Admin\UserManagementController::editUser

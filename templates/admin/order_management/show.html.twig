@@ -1,0 +1,85 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+
+<div class="container">
+    <h2>Hello {{ app.user.fname }} {{ app.user.lname }}</h2>
+    <h4>Your authorisation levels are: {% for role in app.user.roles %} {{ role|trim('ROLE_','left')|upper }} {% endfor %}</h4>
+
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <tr>
+                    <th scope="col">Name</th>
+                    <td>{{ order.order.address.firstName }}{{ order.order.address.lastName }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Email</th>
+                    <td>{{ order.order.address.email }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">City</th>
+                    <td>{{ order.order.address.city }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Street</th>
+                    <td>{{ order.order.address.street }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Number</th>
+                    <td>{{ order.order.address.number }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Address Nickname</th>
+                    <td>{{ order.order.address.addressNickname }}</td>
+
+                </tr>
+                <tr>
+                    <th scope="col">Phone</th>
+                    <td>{{ order.order.address.phone }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Comment</th>
+                    <td>{{ order.order.address.comment }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table table-striped">
+                <tr>
+                    <th scope="col">Status</th>
+                    <td>{{ order.order.status }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Note</th>
+                    <td>{{ order.order.note }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Created At</th>
+                    <td>{{ order.order.createdAt|date("m/d/Y") }}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <tr>
+                <th scope="col">Article Name</th>
+                <td>{{ order.articleName }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Quantity</th>
+                <td>{{ order.quantity }}</td>
+            </tr>
+            <tr>
+                <th scope="col">Price</th>
+                <td>{{ (order.price)*(order.quantity) }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

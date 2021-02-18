@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Category{% endblock %}
+
+{% block body %}
+    <form action="{{ path('category_new')}}" method="post">
+
+        <div class="row">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter Name" {% if category is not null %} value="{{ category.name }}" {% endif %}>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="parent">Parent</label>
+                        <select name="parent" class="form-control" id="parent" >
+                            <option style="color: mediumvioletred" value="">No parent category</option>
+                            {% for category in categories %}
+                            <option value="parent" >{{ category.name }}</option>
+                            {% endfor %}
+
+                        </select>
+{#                        <input type="text" class="form-control" name="parent" placeholder="Enter Parent" {% if category is not null%} value="{{ category.parent }}" {% endif %}>#}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" name="tags" placeholder="Enter Tags" {% if category is not null%} value="{{ category.tags }}" {% endif %}>
+                    </div>
+
+
+                </div>
+                {% if category is null %}
+{#                    <div class="row">#}
+{#                        <div class="form-group col-6">#}
+{#                            <label for="exampleInputPassword1">Password</label>#}
+{#                            <input type="password" class="form-control" name="password" placeholder="Password" >#}
+{#                        </div>#}
+{#                        <div class="form-group col-6">#}
+{#                            <label for="exampleInputPassword1">Password</label>#}
+{#                            <input type="password" class="form-control" name="repeatPassword" placeholder="Repeat Password" >#}
+{#                        </div>#}
+{#                    </div>#}
+                {% else %}
+                    <input type="hidden" class="form-control" name="id" value="{{ category.id }}">
+                {% endif %}
+
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+{% endblock %}
