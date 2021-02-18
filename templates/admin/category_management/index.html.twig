@@ -1,0 +1,71 @@
+{% extends 'admin/base.html.twig' %}
+
+
+
+{% block body %}
+
+
+    <div class="container">
+        <h2>Hello {{ app.user.fname }} {{ app.user.lname }}</h2>
+        <h4>Your authorisation levels are: {% for role in app.user.roles %} {{ role|trim('ROLE_','left')|upper }} {% endfor %}</h4>
+
+    </div>
+            <ul class="list-group" >
+                {% for role in app.user.roles %}
+                {% if role == "ROLE_SUPER_ADMIN" %}
+                <div class="container-fluid">
+                    <div class="row-cols-3">
+                        {% if showDeleted == false %}
+                        <a href="{{ path('category_management_show_deleted') }}" class="btn btn-info">Show deleted categories</a>
+                            {% else %}
+                                <a href="{{ path('category_management') }}" class="btn btn-info">Hide deleted categories</a>
+                                {% endif %}
+                    </div>
+                </div>
+                    {% endif %}
+                {% endfor %}
+
+                <table class="table table-striped">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Parent</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col"></th>
+                        <th scope="col">Updated At</th>
+                        <th scope="col"></th>
+                        <th scope="col">Deleted At</th>
+                    </tr>
+
+                    {% for category in categories %}
+                        <tr>
+
+
+                            <th class="row">{{ category.id}}</th>
+                            <td >{{ category.name}}</td>
+                            <td >{{ category.parent}}</td>
+                            <td >{{ category.createdAt|date("m/d/Y")}}</td>
+                            <td></td>
+                            {%  if category.updatedAt == category.createdAt or category.updatedAt == NULL %}
+                            <td>Not updated yet!</td>
+                            {%  else %}
+                            <td>{{ category.updatedAt|date("m/d/Y")}}</td>
+                            {% endif %}
+                            <td></td>
+                            {% if category.deletedAt == category.createdAt or category.deletedAt == NULL %}
+                            <td>Not deleted!</td>
+                            {% else %}
+                            <td>{{ category.deletedAt|date("m/d/Y") }}</td>
+                            {% endif %}
+
+                            <td><a href="{{ path('category_call_edit', {'id': category.id}) }}" class="btn btn-warning">EDIT</a></td>
+                            <td><a href="{{ path('category_delete', {'id': category.id}) }}" class="btn btn-danger">DELETE</a></td>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </ul>
+            <a href="{{ path('category_call_edit') }}" class="btn btn-success">Create new category</a>
+
+{% endblock %}

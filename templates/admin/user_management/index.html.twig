@@ -1,0 +1,51 @@
+{% extends 'admin/base.html.twig' %}
+
+
+
+{% block body %}
+    {#
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+    #}
+
+<div class="example-wrapper">
+    <div class="container">
+        <h2>Hello {{ app.user.fname }} {{ app.user.lname }}</h2>
+        <h4>Your authorisation levels are: {% for role in app.user.roles %} {{ role|trim('ROLE_','left')|upper }} {% endfor %}</h4>
+
+    </div>
+            <ul class="list-group" >
+
+                    <table class="table table-striped">
+                        <thread>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Created At/Updated At</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thread>
+                        {% for user in users %}
+                        <tr>
+
+                            <th scope="row" >{{ user.id}}</th>
+                            <td >{{ user.email}}</td>
+                            <td >{{ user.createdAt|date("m/d/Y")}}</td>
+                            <td><a href="{{ path('editUser', {'id': user.id}) }}" class="btn btn-warning">EDIT</a>  </td>
+                            {# <td><a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-danger">DELETE</a></td> #}
+
+
+                           <!-- <td><a href="">EDIT</a></td> -->
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+
+
+            </ul>
+
+
+</div>
+{% endblock %}
