@@ -8,61 +8,56 @@
             width: 9.25rem;
             height: 6.25rem;
         }
+
+        .category-products {
+            border: 1px solid;
+            display: table-row-group;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .product-box {
+            max-width: 250px;
+            max-height: 250px;
+            border: 1px solid;
+            margin: 10px;
+            padding: 5px;
+            position: relative;
+            left: 50px;
+            text-align: center;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
     </style>
     <div class="container">
-        <div class="row align-content-center">
+        <div class="row">
             <div class="col">
-            </div>
-            <div class="col-2">
                 <h1>{{ category.name }}</h1>
-            </div>
-            <div class="col">
             </div>
         </div>
     </div>
 
     <div class="category-products">
         <div class="row">
-            <div class="col-xs-5 offset-2">
-                {% for article in articles %}
-                    <a class="product-box" href="{{ path('article_see', {'id': article.id}) }}">
-                    <span class="image-wrapper ">
+            {% for article in articles %}
+                <div class="col">
+                    <a href="{{ path('article_see', {'id': article.id}) }}" style="color: black; text-decoration: none;">
+                        <div class="product-box">
+                    <span class="image-wrapper">
                         <img class="imggg-lg" src="{{ asset(article.imageId) }}">
                     </span><br>
-                        <span class="title-wrapper">
+                            <span class="title-wrapper">
                         {{ article.name }}
                     </span>
-                        <ul class="disabled" >
-                            <li>{{ article.techData }}</li>
-                            <li>{{ article.price|price }}</li>
-                        </ul>
+                            <ul class="disabled">
+                                <li>{{ article.techData }}</li>
+                                <li>{{ article.price|price }}</li>
+                            </ul>
+                        </div>
                     </a>
-                    <table class="table table-responsive">
-                        <tbody>
-                        <tr><th>Name</th><td>{{ article.name }}</td></tr>
-                        </tbody>
-                    </table>
+                </div>
+            {% endfor %}
 
-
-
-                    {# <table class="table table-striped"> #}
-                    {# <tbody> #}
-                    {# <tr> #}
-                    {# <th>Id</th> #}
-                    {# <td>{{ category.id }}</td> #}
-                    {# </tr> #}
-                    {# <tr> #}
-                    {# <th>Name</th> #}
-                    {# <td>{{ category.name }}</td> #}
-                    {# </tr> #}
-                    {# <tr> #}
-                    {# <th>ImageId</th> #}
-                    {# <td>{{ category.imageId }}</td> #}
-                    {# </tr> #}
-                    {# </tbody> #}
-                    {# </table> #}
-                {% endfor %}
-            </div>
         </div>
     </div>
 
