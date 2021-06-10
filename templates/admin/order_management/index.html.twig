@@ -35,18 +35,19 @@
                         <th scope="col">Note</th>
                         <th scope="col">Created At</th>
                         <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Price per piece</th>
                     </tr>
                     {% for order in orders %}
                         <tr>
-                            <th class="row">{{ order.id }}</th>
+{#                            <td class="row">{{ order.id }}</td>#}
                             <td>{{ order.order.address.firstName }}{{ order.order.address.lastName }}</td>
                             <td>{{ order.order.address.phone }}</td>
                             <td>{{ order.order.address.comment }}</td>
                             <td>{{ order.order.status }}</td>
                             <td>{{ order.order.note }}</td>
                             <td>{{ order.order.createdAt|date("m/d/Y") }}</td>
-                            <td>{{ (order.price)*(order.quantity) }} лв</td>
+                            <td>{{ order.quantity }}</td>
+                            <td>{{ order.price|price }}</td>
                             <td></td>
                             {# {% if order.order.updatedAt == order.createdAt or order.updatedAt == NULL %} #}
                             {# <td>Not updated yet!</td> #}
